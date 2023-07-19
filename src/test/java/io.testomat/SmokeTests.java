@@ -1,22 +1,22 @@
 package io.testomat;
 
-import java.time.Duration;
-
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
+import io.testomat.ui.ProjectsPage;
+import io.testomat.ui.SignInPage;
+import io.testomat.ui.data.BaseProjectInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.hidden;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static io.testomat.ui.Preloaders.disappearsMainPreloader;
 
 public class SmokeTests {
 
     Faker faker = new Faker();
+    ProjectsPage projectsPage = new ProjectsPage();
 
     static {
         Configuration.baseUrl = "https://uat.testomat.io/";
@@ -26,9 +26,9 @@ public class SmokeTests {
     @BeforeEach
     void openLoginForm() {
         open("users/sign_in");
-        $("#content-desktop #user_email").val("olexiyshamray@gmail.com");
-        $("#content-desktop #user_password").val("Blackmore#1989")
-                                            .pressEnter();
+        new SignInPage()
+            .isLoaded()
+            .signUser();
 
         open("/projects/new");
     }
@@ -36,21 +36,23 @@ public class SmokeTests {
     @Test
     @DisplayName("Create test case flow test")
     void createTestCaseFLowTest() {
-        $("#content-desktop h2").shouldBe(text("New Project"), Duration.ofSeconds(10));
+        String targetProjectName = faker.rockBand().name();
 
-        $("#project_title").val(faker.rockBand().name());
+        projectsPage
+            .isLoaded()
+            .createTestProject(targetProjectName);
 
-        $("[name='commit']").click();
+        disappearsMainPreloader();
 
-        $("#app-loader")
-            .shouldBe(visible)
-            .shouldBe(hidden, Duration.ofSeconds(20));
-        $(".back").click();
+        var expectedProjectTile = BaseProjectInfo.builder()
+                                                 .name(targetProjectName)
+                                                 .count("0")
+                                                 .label(BaseProjectInfo.ProjectType.CLASSICAL)
+                                                 .build();
+        open("/");
 
-        String targetTestSuiteName = faker.music().chord();
-        $("[placeholder='First Suite']").val(targetTestSuiteName);
-        $(".md-icon-plus path").click();
-
-        $(".list-group-wrapper a[href*='suite']").shouldHave(text(targetTestSuiteName), text("0"));
+        projectsPage
+            .assertThat(expectedProjectTile)
+            .hasCorrectInfo();
     }
 }
