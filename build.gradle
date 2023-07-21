@@ -13,7 +13,9 @@ repositories {
 dependencies {
     implementation(
             'com.codeborne:selenide:6.15.0',
-            'com.github.javafaker:javafaker:1.0.2'
+            'com.github.javafaker:javafaker:1.0.2',
+            'com.microsoft.playwright:playwright:1.35.1',
+            'org.slf4j:slf4j-simple:2.0.7'
     )
 
 
