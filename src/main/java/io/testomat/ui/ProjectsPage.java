@@ -7,6 +7,7 @@ import io.testomat.ui.data.BaseProjectInfo;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.confirm;
 
 public class ProjectsPage extends BasePage{
 
@@ -27,5 +28,29 @@ public class ProjectsPage extends BasePage{
 
     public ProjectsPageAsserts assertThat(BaseProjectInfo expectedProjectTile) {
         return new ProjectsPageAsserts(expectedProjectTile);
+    }
+
+    public ProjectsPage openProjectByName(String projectName) {
+        findElements("h3").findBy(text(projectName)).click();
+        return this;
+    }
+
+    public ProjectsPage projectIsOpen(String projectName) {
+        $("h2").shouldBe(text(projectName));
+        return this;
+    }
+
+    public ProjectsPage openProjectSettngs() {
+        $(".md-icon-cog").click();
+        $("#ember24").click();
+        return this;
+    }
+
+    public ProjectsPage deleteProject() {
+        $(".red-btn").click();
+        confirm("Are you sure?");
+        $(".red-btn").click();
+        confirm("Are you sure? This action cannot be reversed");
+        return this;
     }
 }

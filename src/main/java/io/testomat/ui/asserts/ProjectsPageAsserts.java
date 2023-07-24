@@ -28,4 +28,11 @@ public class ProjectsPageAsserts {
                                           .because("Expected project label is equal to " + expectedProjectTile.getLabel().toString()));
         return this;
     }
+
+    public ProjectsPageAsserts isDeleted() {
+        $("h3").shouldNotHave(text(expectedProjectTile.getName())
+                                        .because("Project with name " + expectedProjectTile.getName() + "should be deleted"));
+        return this;
+    }
+
 }
