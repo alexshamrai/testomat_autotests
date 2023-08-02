@@ -1,9 +1,6 @@
-package io.testomat.api.model;
-
-import java.util.List;
+package io.testomat.api.suites.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -13,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GetResp{
+public class Data {
 
-    @JsonProperty("data")
-    private Data data;
+	private Relationships relationships;
+	private Attributes attributes;
+	private String id;
+	private String type;
 
-    @JsonProperty("included")
-    private List<Object> included;
 }

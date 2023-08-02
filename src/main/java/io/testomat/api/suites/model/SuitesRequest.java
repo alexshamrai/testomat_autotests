@@ -1,4 +1,4 @@
-package io.testomat.api.model;
+package io.testomat.api.suites.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,12 +18,8 @@ public class SuitesRequest {
     @Builder
     public static class DataDetail {
 
-        @JsonProperty("attributes")
         private Attributes attributes;
-
-        @JsonProperty("type")
         private String type ;
-
     }
 
 }

@@ -1,22 +1,19 @@
-package io.testomat.api.model;
+package io.testomat.api.suites.model;
+
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @lombok.Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Data {
+public class Suite {
 
-	private Relationships relationships;
-	private Attributes attributes;
-	private String id;
-	private String type;
-
+    private Data data;
+    private List<Object> included;
 }

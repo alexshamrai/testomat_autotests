@@ -1,6 +1,4 @@
-package io.testomat.api.model;
-
-import java.util.List;
+package io.testomat.api.suites.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,16 +22,9 @@ public class SuitesResponse {
     @AllArgsConstructor
     public static class Datas {
 
-        @JsonProperty("id")
         private String id;
-
-        @JsonProperty("type")
         private String type;
-
-        @JsonProperty("attributes")
         private Attributes attributes;
-
-        @JsonProperty("relationships")
         private Relationships relationships;
 
     }
