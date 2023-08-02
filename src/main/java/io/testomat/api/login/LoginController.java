@@ -1,9 +1,10 @@
-package io.testomat.api.controller;
+package io.testomat.api.login;
 
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
+import io.testomat.api.common.BaseController;
+import io.testomat.api.login.model.LoginResponse;
 
-public class LoginController extends BaseController {
+public class LoginController extends BaseController<LoginController> {
 
     public String loginUser(String email, String password) {
         return baseClient()
@@ -12,7 +13,7 @@ public class LoginController extends BaseController {
                        "email", email,
                        "password", password
                    )
-                   .post("/login")
-                   .body().jsonPath().get("jwt");
+                   .post("/login").as(LoginResponse.class)
+                   .getJwt();
     }
 }

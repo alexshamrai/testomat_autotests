@@ -1,4 +1,4 @@
-package io.testomat.api.model;
+package io.testomat.api.suites.model;
 
 import java.util.List;
 

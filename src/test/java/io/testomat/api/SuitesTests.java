@@ -2,16 +2,28 @@ package io.testomat.api;
 
 import com.github.javafaker.Book;
 import com.github.javafaker.Faker;
-import io.testomat.api.controller.LoginController;
-import io.testomat.api.controller.SuitesController;
-import io.testomat.api.model.Attributes;
-import io.testomat.api.model.SuitesRequest;
-import io.testomat.api.model.SuitesResponse;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
+import io.testomat.api.login.LoginController;
+import io.testomat.api.suites.SuitesController;
+import io.testomat.api.suites.model.Attributes;
+import io.testomat.api.suites.model.Suite;
+import io.testomat.api.suites.model.SuitesRequest;
+import io.testomat.api.suites.model.SuitesResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.requestSpecification;
+import static io.restassured.RestAssured.responseSpecification;
+
 public class SuitesTests {
+
+    static {
+        requestSpecification = new RequestSpecBuilder().log(LogDetail.ALL).build();
+        responseSpecification = new ResponseSpecBuilder().log(LogDetail.ALL).build();
+    }
 
     private Book book = new Faker().book();
     private String authToken;
@@ -28,16 +40,21 @@ public class SuitesTests {
     void positiveSuitesTests() {
 
         var targetTestSuite = getSuitesDto();
-
         var suitesController = new SuitesController().withToken(authToken);
 
-        SuitesResponse suitesResponse = (SuitesResponse) suitesController
-                                                             .createSuite(targetProject, targetTestSuite)
-                                                             .toObject();
+        var suitesResponse = suitesController
+                                            .createSuite(targetProject, targetTestSuite)
+                                            .assertStatusCode(200)
+                                            .as();
 
         var getSuite = suitesController
                            .getSuite(targetProject, suitesResponse.getData().getId())
-                           .toObject();
+                           .assertStatusCode(200)
+                           .as();
+
+        getSuite.getData().getId(); //TODO add assertions
+
+        var abc = suitesController.deleteSuite(targetProject, suitesResponse.getData().getId());
     }
 
     @Test
