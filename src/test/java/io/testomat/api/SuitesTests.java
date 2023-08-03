@@ -5,12 +5,12 @@ import com.github.javafaker.Faker;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
+import io.testomat.api.login.CredentialsLoader;
 import io.testomat.api.login.LoginController;
+import io.testomat.api.login.model.Credentials;
 import io.testomat.api.suites.SuitesController;
 import io.testomat.api.suites.model.Attributes;
-import io.testomat.api.suites.model.Suite;
 import io.testomat.api.suites.model.SuitesRequest;
-import io.testomat.api.suites.model.SuitesResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,10 +27,11 @@ public class SuitesTests {
 
     private Book book = new Faker().book();
     private String authToken;
+    private Credentials admin = CredentialsLoader.getCredentials();
 
     @BeforeEach
     void beforeEach() {
-        this.authToken = new LoginController().loginUser("olexiyshamray@gmail.com", "Blackmore#1989");
+        this.authToken = new LoginController().loginUser(admin);
     }
 
     String targetProject = "testproject-762e1";
