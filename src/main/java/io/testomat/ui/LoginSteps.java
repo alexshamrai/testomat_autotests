@@ -1,4 +1,4 @@
-package io.testomat.api;
+package io.testomat.ui;
 
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import io.testomat.api.login.model.Credentials;
 import org.openqa.selenium.Cookie;
-
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -24,7 +24,7 @@ public class LoginSteps {
                                    .build();
     }
 
-    public Set<Cookie> getLoginCookies() {
+    public Set<Cookie> getLoginCookies(Credentials credentials) {
         var signInForm = given()
                              .basePath("/users/sign_in")
                              .get();
@@ -38,8 +38,8 @@ public class LoginSteps {
                              .contentType(ContentType.URLENC)
                              .cookies(signInForm.getDetailedCookies())
                              .formParams(
-                                 "user[email]", "olexiyshamray@gmail.com",
-                                 "user[password]", "Blackmore#1989",
+                                 "user[email]", credentials.getEmail(),
+                                 "user[password]", credentials.getPassword(),
                                  "authenticity_token", token,
                                  "user[remember_me]", "0",
                                  "commit", "Sign in"
@@ -56,6 +56,6 @@ public class LoginSteps {
         if (matcher.find()) {
             return matcher.group(1);
         }
-        return null;
+        throw new RuntimeException("Cannot extract the Auth Token from the Sign-In form.");
     }
 }
