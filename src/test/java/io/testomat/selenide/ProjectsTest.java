@@ -1,5 +1,7 @@
 package io.testomat.selenide;
 
+import io.testomat.api.tests.TestsController;
+import io.testomat.api.tests.model.TestsRequest;
 import io.testomat.ui.ProjectsPage;
 import io.testomat.ui.data.BaseProjectInfo;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +14,9 @@ import static io.testomat.ui.Preloaders.disappearsMainPreloader;
 public class ProjectsTest extends BaseTest {
 
     ProjectsPage projectsPage = new ProjectsPage();
+
+    private final String PROJECT_ID = "baseproject";
+    private final String SUITE_ID = "b2d3c681";
 
     @BeforeEach
     void openLoginForm() {
@@ -59,12 +64,32 @@ public class ProjectsTest extends BaseTest {
     @DisplayName("Create new test")
     void createNewTest() {
         // TODO implement the test
+        TestsController testsController = new TestsController().withToken(authToken);
+        var test = getTestDto();
+        var resp = testsController.createTest(PROJECT_ID, test).as();
+        var tests = testsController.getTests(PROJECT_ID).as();
+        var testId = resp.getData().getId();
+        var testDetails = testsController.getTest(PROJECT_ID, testId);
+        testsController.deleteTest(PROJECT_ID, testId);
     }
 
     @Test
     @DisplayName("Check project menu sidebar")
     void checkProjectMenuSidebar() {
         // TODO implement the test
+    }
+
+    private TestsRequest getTestDto() {
+        return TestsRequest.builder().
+                           data(TestsRequest.Data.builder()
+                                                 .type("test")
+                                                 .attributes(TestsRequest.Attributes.builder()
+                                                                                    .priority(0)
+                                                                                    .title("ApiTest")
+                                                                                    .suite_id(SUITE_ID)
+                                                                                    .description("An api test")
+                                                                                    .build())
+                                                 .build()).build();
     }
 
 }

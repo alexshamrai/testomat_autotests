@@ -10,11 +10,13 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.junit5.SoftAssertsExtension;
 import com.codeborne.selenide.junit5.TextReportExtension;
 import io.testomat.api.login.CredentialsLoader;
+import io.testomat.api.login.LoginController;
 import io.testomat.api.login.model.Credentials;
 import io.testomat.selenide.common.SoftAssertExtension;
 import com.github.javafaker.Faker;
 import io.testomat.ui.LoginSteps;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.Cookie;
@@ -27,6 +29,7 @@ public class BaseTest {
     LoginSteps loginSteps = new LoginSteps();
     Credentials credentials = CredentialsLoader.getCredentials();
     Faker faker = new Faker();
+    String authToken;
 
     @RegisterExtension
     static TextReportExtension textReportExtension = new TextReportExtension().onFailedTest(true).onSucceededTest(true);
@@ -54,6 +57,10 @@ public class BaseTest {
     @AfterEach
     void tearDown() {
         Selenide.closeWebDriver();
+    }
+    @BeforeEach
+    void getToken() {
+        authToken = new LoginController().loginUser(credentials);
     }
 
 }

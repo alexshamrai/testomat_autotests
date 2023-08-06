@@ -27,11 +27,11 @@ public class SuitesTests {
 
     private Book book = new Faker().book();
     private String authToken;
-    private Credentials admin = CredentialsLoader.getCredentials();
+    private Credentials credentials = CredentialsLoader.getCredentials();
 
     @BeforeEach
     void beforeEach() {
-        this.authToken = new LoginController().loginUser(admin);
+        this.authToken = new LoginController().loginUser(credentials);
     }
 
     String targetProject = "testproject-762e1";
@@ -74,8 +74,8 @@ public class SuitesTests {
 
 
     private SuitesRequest getSuitesDto() {
-        var targetTestSuite = SuitesRequest.builder()
-                                           .datas(SuitesRequest.DataDetail.builder()
+        return SuitesRequest.builder()
+                            .datas(SuitesRequest.DataDetail.builder()
                                                                           .type("suite")
                                                                           .attributes(
                                                                               Attributes.builder()
@@ -84,6 +84,5 @@ public class SuitesTests {
                                                                                         .build())
                                                                           .build()
                                            ).build();
-        return targetTestSuite;
     }
 }
