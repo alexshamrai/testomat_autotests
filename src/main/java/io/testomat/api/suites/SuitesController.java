@@ -2,7 +2,7 @@ package io.testomat.api.suites;
 
 import io.testomat.api.common.ResponseDecorator;
 import io.testomat.api.common.BaseController;
-import io.testomat.api.suites.model.Suite;
+import io.testomat.api.suites.model.SuiteResponse;
 import io.testomat.api.suites.model.SuitesRequest;
 import io.testomat.api.suites.model.SuitesResponse;
 
@@ -24,10 +24,10 @@ public class SuitesController extends BaseController<SuitesController> {
         );
     }
 
-    public ResponseDecorator<Suite> getSuite(String targetProjectId, String targetSuiteId) {
+    public ResponseDecorator<SuiteResponse> getSuite(String targetProjectId, String targetSuiteId) {
         return new ResponseDecorator<>(
             baseClient().get("/{projectId}/suites/{suiteId}", targetProjectId, targetSuiteId),
-            Suite.class
+            SuiteResponse.class
         );
     }
 

@@ -1,13 +1,9 @@
 package io.testomat.api;
 
-import com.github.javafaker.Book;
-import com.github.javafaker.Faker;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.filter.log.LogDetail;
 import io.testomat.api.login.CredentialsLoader;
 import io.testomat.api.login.LoginController;
 import io.testomat.api.login.model.Credentials;
+import io.testomat.api.suites.SuiteResponseAsserts;
 import io.testomat.api.suites.SuitesController;
 import io.testomat.api.suites.model.Attributes;
 import io.testomat.api.suites.model.SuitesRequest;
@@ -15,17 +11,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.requestSpecification;
-import static io.restassured.RestAssured.responseSpecification;
+public class SuitesTests extends BaseTest {
 
-public class SuitesTests {
+    private static final String SUITE_DESCRIPTION = faker.harryPotter().quote();
+    private static final String SUITE_TITLE = faker.harryPotter().book();
+    private static final String TARGET_PROJECT = "testproject-762e1";
 
-    static {
-        requestSpecification = new RequestSpecBuilder().log(LogDetail.ALL).build();
-        responseSpecification = new ResponseSpecBuilder().log(LogDetail.ALL).build();
-    }
-
-    private Book book = new Faker().book();
     private String authToken;
     private Credentials credentials = CredentialsLoader.getCredentials();
 
@@ -33,9 +24,7 @@ public class SuitesTests {
     void beforeEach() {
         this.authToken = new LoginController().loginUser(credentials);
     }
-
-    String targetProject = "testproject-762e1";
-
+    
     @Test
     @DisplayName("positive suites tests")
     void positiveSuitesTests() {
@@ -44,31 +33,34 @@ public class SuitesTests {
         var suitesController = new SuitesController().withToken(authToken);
 
         var suitesResponse = suitesController
-                                            .createSuite(targetProject, targetTestSuite)
+                                            .createSuite(TARGET_PROJECT, targetTestSuite)
                                             .assertStatusCode(200)
                                             .as();
 
-        var getSuite = suitesController
-                           .getSuite(targetProject, suitesResponse.getData().getId())
+        var suite = suitesController
+                           .getSuite(TARGET_PROJECT, suitesResponse.getData().getId())
                            .assertStatusCode(200)
                            .as();
 
-        getSuite.getData().getId(); //TODO add assertions
+        new SuiteResponseAsserts(suite)
+            .idIsNotNull()
+            .publicTitleIs(SUITE_TITLE)
+            .labelsShouldBeEmpty();
 
-        var abc = suitesController.deleteSuite(targetProject, suitesResponse.getData().getId());
+        suitesController.deleteSuite(TARGET_PROJECT, suitesResponse.getData().getId());
     }
 
     @Test
-    @DisplayName("auth negative tests")
-    void authNegativeTests() {
+    @DisplayName("Suites auth negative test")
+    void suitesAuthNegativeTest() {
         SuitesController suitesController = new SuitesController();
         suitesController.cleanToken();
 
-        suitesController.getSuites(targetProject)
+        suitesController.getSuites(TARGET_PROJECT)
                         .assertStatusCode(401);
         suitesController.createSuite("", getSuitesDto())
                         .assertStatusCode(401);
-        suitesController.getSuite(targetProject, "")
+        suitesController.getSuite(TARGET_PROJECT, "")
                         .assertStatusCode(401);
     }
 
@@ -79,8 +71,8 @@ public class SuitesTests {
                                                                           .type("suite")
                                                                           .attributes(
                                                                               Attributes.builder()
-                                                                                        .description(book.genre())
-                                                                                        .title(book.title())
+                                                                                        .description(SUITE_DESCRIPTION)
+                                                                                        .title(SUITE_TITLE)
                                                                                         .build())
                                                                           .build()
                                            ).build();
