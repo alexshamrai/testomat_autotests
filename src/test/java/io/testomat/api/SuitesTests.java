@@ -28,26 +28,25 @@ public class SuitesTests extends BaseTest {
     @Test
     @DisplayName("positive suites tests")
     void positiveSuitesTests() {
-
         var targetTestSuite = getSuitesDto();
         var suitesController = new SuitesController().withToken(authToken);
 
-        var suitesResponse = suitesController
-                                            .createSuite(TARGET_PROJECT, targetTestSuite)
-                                            .assertStatusCode(200)
-                                            .as();
+        var suites = suitesController
+                         .createSuite(TARGET_PROJECT, targetTestSuite)
+                         .assertStatusCode(200)
+                         .as();
 
         var suite = suitesController
-                           .getSuite(TARGET_PROJECT, suitesResponse.getData().getId())
-                           .assertStatusCode(200)
-                           .as();
+                        .getSuite(TARGET_PROJECT, suites.getData().getId())
+                        .assertStatusCode(200)
+                        .as();
 
         new SuiteResponseAsserts(suite)
             .idIsNotNull()
             .publicTitleIs(SUITE_TITLE)
             .labelsShouldBeEmpty();
 
-        suitesController.deleteSuite(TARGET_PROJECT, suitesResponse.getData().getId());
+        suitesController.deleteSuite(TARGET_PROJECT, suites.getData().getId());
     }
 
     @Test
@@ -68,13 +67,13 @@ public class SuitesTests extends BaseTest {
     private SuitesRequest getSuitesDto() {
         return SuitesRequest.builder()
                             .datas(SuitesRequest.DataDetail.builder()
-                                                                          .type("suite")
-                                                                          .attributes(
-                                                                              Attributes.builder()
-                                                                                        .description(SUITE_DESCRIPTION)
-                                                                                        .title(SUITE_TITLE)
-                                                                                        .build())
-                                                                          .build()
-                                           ).build();
+                                                           .type("suite")
+                                                           .attributes(
+                                                               Attributes.builder()
+                                                                         .description(SUITE_DESCRIPTION)
+                                                                         .title(SUITE_TITLE)
+                                                                         .build())
+                                                           .build()
+                            ).build();
     }
 }

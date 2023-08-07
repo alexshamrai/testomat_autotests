@@ -1,6 +1,9 @@
 package io.testomat.api.common;
 
 import io.restassured.response.Response;
+import lombok.SneakyThrows;
+
+import static io.testomat.api.common.BindingExceptionHandler.catchResponseException;
 
 public class ResponseDecorator<T> {
 
@@ -21,7 +24,12 @@ public class ResponseDecorator<T> {
         return this;
     }
 
+    @SneakyThrows
     public T as() {
-        return targetResponse.as(targetClass);
+        try {
+            return targetResponse.as(targetClass);
+        } catch (Exception e) {
+            throw catchResponseException(e, targetClass);
+        }
     }
 }

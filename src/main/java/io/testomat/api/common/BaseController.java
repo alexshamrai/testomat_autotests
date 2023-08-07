@@ -19,6 +19,7 @@ public abstract class BaseController<T> {
     protected RequestSpecification baseClient() {
         var authorization = RestAssured.given()
                                        .baseUri("https://uat.testomat.io/api")
+                                       .filter(new LogRequestFilter())
                                        .contentType("application/vnd.api+json");
 
         if (authToken != null) {
