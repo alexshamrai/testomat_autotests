@@ -57,4 +57,15 @@ public class SuiteResponseAsserts extends SuiteResponse {
             .isEqualTo(expectedTitle);
         return this;
     }
+
+    public SuiteResponseAsserts suiteIdIs(String expectedId) {
+        assertThat(suiteResponse.getData().getId())
+            .withFailMessage(String.format(
+                "Suite Id should be %s but was %s",
+                expectedId,
+                suiteResponse.getData().getAttributes().getPublicTitle()
+            ))
+            .isEqualTo(expectedId);
+        return this;
+    }
 }

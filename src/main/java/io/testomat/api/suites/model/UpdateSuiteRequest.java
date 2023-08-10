@@ -9,15 +9,16 @@ import lombok.Data;
 @Data
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SuitesRequest {
+public class UpdateSuiteRequest {
 
     @JsonProperty("data")
-    private DataDetail datas;
+    private DataDetail data;
 
     @Data
     @Builder
     public static class DataDetail {
 
+        private String id;
         private Attributes attributes;
         private String type ;
     }
