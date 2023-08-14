@@ -70,6 +70,7 @@ public class ProjectsTest extends BaseTest {
         var tests = testsController.getTests(PROJECT_ID).as();
         var testId = resp.getData().getId();
         var testDetails = testsController.getTest(PROJECT_ID, testId);
+        var updated = testsController.updateTest(PROJECT_ID, testId, test);
         testsController.deleteTest(PROJECT_ID, testId);
     }
 
