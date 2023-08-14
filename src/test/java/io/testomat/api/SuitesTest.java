@@ -13,7 +13,6 @@ public class SuitesTest extends BaseTest {
     private static final String SUITE_DESCRIPTION = faker.harryPotter().quote();
     private static final String SUITE_TITLE = faker.harryPotter().book();
     private static final String UPDATED_SUITE_TITLE = faker.gameOfThrones().house();
-    private static final String TARGET_PROJECT = "testproject-762e1";
 
     @Test
     @DisplayName("Should create, update and delete Test Suite")
@@ -22,12 +21,12 @@ public class SuitesTest extends BaseTest {
         var suitesController = new SuitesController().withToken(authToken);
 
         var suites = suitesController
-                         .createSuite(TARGET_PROJECT, targetTestSuite)
+                         .createSuite(PROJECT_ID, targetTestSuite)
                          .assertStatusCode(200)
                          .as();
 
         var suite = suitesController
-                        .getSuite(TARGET_PROJECT, suites.getData().getId())
+                        .getSuite(PROJECT_ID, suites.getData().getId())
                         .assertStatusCode(200)
                         .as();
 
@@ -39,15 +38,15 @@ public class SuitesTest extends BaseTest {
         final String suiteId = suite.getData().getId();
         var updatedTargetSuite =  getUpdateSuiteDto(suiteId);
         var updatedSuite = suitesController
-                               .updateSuite(TARGET_PROJECT, suiteId, updatedTargetSuite)
+                               .updateSuite(PROJECT_ID, suiteId, updatedTargetSuite)
                                .assertStatusCode(200)
                                .as();
 
         new SuiteResponseAsserts(updatedSuite)
             .suiteIdIs(suiteId)
-            .publicTitleIs(UPDATED_SUITE_TITLE + "1");
+            .publicTitleIs(UPDATED_SUITE_TITLE);
 
-        suitesController.deleteSuite(TARGET_PROJECT, suites.getData().getId());
+        suitesController.deleteSuite(PROJECT_ID, suites.getData().getId());
     }
 
     @Test
@@ -56,11 +55,11 @@ public class SuitesTest extends BaseTest {
         SuitesController suitesController = new SuitesController();
         suitesController.cleanToken();
 
-        suitesController.getSuites(TARGET_PROJECT)
+        suitesController.getSuites(PROJECT_ID)
                         .assertStatusCode(401);
         suitesController.createSuite("", getSuiteDto())
                         .assertStatusCode(401);
-        suitesController.getSuite(TARGET_PROJECT, "")
+        suitesController.getSuite(PROJECT_ID, "")
                         .assertStatusCode(401);
     }
 

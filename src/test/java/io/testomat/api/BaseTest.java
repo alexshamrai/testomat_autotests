@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 public abstract class BaseTest {
 
+    static final String PROJECT_ID = "baseproject";
+
     static Faker faker = new Faker();
 
     String authToken;

@@ -34,5 +34,5 @@ public class Attributes{
 	private String importId;
 	private String playUrl;
 	private String jiraIssues;
-	private String attachments;
+	private List<Attachment> attachments;
 }
