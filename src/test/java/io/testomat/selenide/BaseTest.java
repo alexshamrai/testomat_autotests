@@ -22,9 +22,10 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.Cookie;
 
 import static com.codeborne.selenide.Selenide.open;
+import static io.testomat.api.common.ConfigurationProperties.getProperty;
 
 @ExtendWith({SoftAssertsExtension.class, SoftAssertExtension.class})
-public class BaseTest {
+public abstract class BaseTest {
 
     LoginSteps loginSteps = new LoginSteps();
     Credentials credentials = CredentialsLoader.getCredentials();
@@ -34,14 +35,13 @@ public class BaseTest {
     @RegisterExtension
     static TextReportExtension textReportExtension = new TextReportExtension().onFailedTest(true).onSucceededTest(true);
 
-    // TODO extract parameters to properties
     static {
-        Configuration.baseUrl = "https://uat.testomat.io/";
-        Configuration.browserSize = "1024*1024";
-        Configuration.clickViaJs = true;
-        Configuration.fastSetValue = true;
-        Configuration.remoteReadTimeout = Duration.ofSeconds(30).toMillis();
-        Configuration.remoteConnectionTimeout = Duration.ofSeconds(30).toMillis();
+        Configuration.baseUrl = getProperty("base.url");
+        Configuration.browserSize = getProperty("browser.size");
+        Configuration.clickViaJs = Boolean.parseBoolean(getProperty("click.via.js"));
+        Configuration.fastSetValue = Boolean.parseBoolean(getProperty("fast.set.value"));
+        Configuration.remoteReadTimeout = Duration.ofSeconds(Long.parseLong(getProperty("default.timeout"))).toMillis();
+        Configuration.remoteConnectionTimeout = Duration.ofSeconds(Long.parseLong(getProperty("default.timeout"))).toMillis();
     }
 
     public void openPageAsLoggedInUser(String relativeUrl) {
