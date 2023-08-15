@@ -3,8 +3,11 @@ package io.testomat.api.common;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 
+import static io.testomat.api.common.ConfigurationProperties.getProperty;
+
 public abstract class BaseController<T> {
 
+    private final String baseUrl = getProperty("base.url");
     private String authToken;
 
     public T withToken(String authToken) {
@@ -18,7 +21,7 @@ public abstract class BaseController<T> {
 
     protected RequestSpecification baseClient() {
         var authorization = RestAssured.given()
-                                       .baseUri("https://uat.testomat.io/api")
+                                       .baseUri(baseUrl + "api")
                                        .filter(new LogRequestFilter())
                                        .contentType("application/vnd.api+json");
 
