@@ -14,6 +14,11 @@ import static com.codeborne.selenide.Selenide.page;
 public class ProjectsPage extends BasePage{
 
     public ProjectsPage isLoaded() {
+        find("h2").shouldBe(text("Projects"), Duration.ofSeconds(20));
+        return this;
+    }
+
+    public ProjectsPage newProjectPageIsLoaded() {
         find("h2").shouldBe(text("New project"), Duration.ofSeconds(20));
         return this;
     }

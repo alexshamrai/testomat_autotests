@@ -2,7 +2,6 @@ package io.testomat.selenide;
 
 import io.testomat.api.login.CredentialsLoader;
 import io.testomat.api.login.model.Credentials;
-import io.testomat.ui.MainPage;
 import io.testomat.ui.ProjectsPage;
 import io.testomat.ui.SignInPage;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class SmokeTest extends BaseTest {
 
-    MainPage mainPage = new MainPage();
+    ProjectsPage projectsPage = new ProjectsPage();
     Credentials credentials = CredentialsLoader.getCredentials();
 
     @BeforeEach
@@ -27,7 +26,7 @@ public class SmokeTest extends BaseTest {
     @Test
     @DisplayName("Login and open the main page")
     void userShouldLogin() {
-        mainPage
+        projectsPage
             .isLoaded();
         // TODO add main page assertions
     }

@@ -2,31 +2,28 @@ package io.testomat.selenide;
 
 import io.testomat.api.suites.SuitesController;
 import io.testomat.api.tests.TestsController;
-import io.testomat.api.tests.model.TestsRequest;
-import io.testomat.ui.MainPage;
 import io.testomat.ui.ProjectsPage;
 import io.testomat.ui.SuitePage;
+import io.testomat.ui.TestPage;
 import io.testomat.ui.data.BaseProjectInfo;
 import io.testomat.ui.data.BaseSuiteInfo;
-import org.junit.jupiter.api.BeforeEach;
+import io.testomat.ui.data.BaseTestInfo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 import static io.testomat.ui.Preloaders.disappearsMainPreloader;
+import static io.testomat.ui.data.BaseTestInfo.TestType.MANUAL;
 
 public class ProjectsTest extends BaseTest {
 
+    private static final String PROJECT_NAME = "BaseProject";
+    private static final String PROJECT_ID = "baseproject";
+    public static final String BASE_SUITE_NAME = "BaseSuite";
+
     ProjectsPage projectsPage = new ProjectsPage();
     SuitePage suitesPage = new SuitePage();
-    MainPage mainPage = new MainPage();
-
-    private final String PROJECT_ID = "baseproject";
-    private final String SUITE_ID = "b2d3c681";
-
-    @BeforeEach
-    void openLoginForm() {
-    }
+    TestPage testPage = new TestPage();
 
     @Test
     @DisplayName("Create new project and delete it SOFT")
@@ -34,13 +31,13 @@ public class ProjectsTest extends BaseTest {
         openPageAsLoggedInUser("/projects/new");
         var targetProjectName = faker.rockBand().name();
         projectsPage
-            .isLoaded()
+            .newProjectPageIsLoaded()
             .createTestProject(targetProjectName);
         disappearsMainPreloader();
 
         var expectedProjectTile = BaseProjectInfo.builder()
                                                  .name(targetProjectName)
-                                                 .count("0")
+                                                 .count(0)
                                                  .label(BaseProjectInfo.ProjectType.CLASSICAL)
                                                  .build();
         open("/");
@@ -61,12 +58,12 @@ public class ProjectsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Create test suite SOFT")
+    @DisplayName("Create test suite on Projects page SOFT")
     void createNewTestSuite() {
         openPageAsLoggedInUser("/projects");
-        mainPage
+        projectsPage
             .isLoaded()
-            .openProjectByName("BaseProject");
+            .openProjectByName(PROJECT_NAME);
 
         var targetTestSuiteName = faker.witcher().quote();
         var expectedSuite = BaseSuiteInfo.builder()
@@ -75,7 +72,7 @@ public class ProjectsTest extends BaseTest {
                                          .build();
 
         projectsPage
-            .projectIsOpen("BaseProject")
+            .projectIsOpen(PROJECT_NAME)
             .createTestSuite(targetTestSuiteName)
             .closeSidebar();
 
@@ -84,37 +81,41 @@ public class ProjectsTest extends BaseTest {
                           .getSuiteId();
 
         suitesPage
+            .isLoaded(targetTestSuiteName)
             .assertThat(expectedSuite)
             .hasCorrectInfo();
 
         var suitesController = new SuitesController().withToken(authToken);
-        suitesController.deleteSuite("BaseProject", suiteId);
+        suitesController.deleteSuite(PROJECT_NAME, suiteId);
     }
 
     @Test
-    @DisplayName("Create new test")
+    @DisplayName("Create new test from Projects Page")
     void createNewTest() {
-        // TODO implement the test
-        TestsController testsController = new TestsController().withToken(authToken);
-        var test = getTestDto();
-        var resp = testsController.createTest(PROJECT_ID, test).as();
-        var tests = testsController.getTests(PROJECT_ID).as();
-        var testId = resp.getData().getId();
-        var testDetails = testsController.getTest(PROJECT_ID, testId);
-        var updated = testsController.updateTest(PROJECT_ID, testId, test);
-        testsController.deleteTest(PROJECT_ID, testId);
-    }
+        openPageAsLoggedInUser("/projects");
+        projectsPage
+            .isLoaded()
+            .openProjectByName(PROJECT_NAME)
+            .openSuiteByName(BASE_SUITE_NAME);
 
-    private TestsRequest getTestDto() {
-        return TestsRequest.builder().
-                           data(TestsRequest.Data.builder()
-                                                 .type("test")
-                                                 .attributes(TestsRequest.Attributes.builder()
-                                                                                    .priority(0)
-                                                                                    .title("ApiTest")
-                                                                                    .suite_id(SUITE_ID)
-                                                                                    .description("An api test")
-                                                                                    .build())
-                                                 .build()).build();
+        var targetTestName = faker.harryPotter().spell();
+        var expectedTest = BaseTestInfo.builder()
+                                       .name(targetTestName)
+                                       .testType(MANUAL)
+                                       .build();
+
+        suitesPage
+            .isLoaded(BASE_SUITE_NAME)
+            .createNewTest(targetTestName)
+            .openTestByName(targetTestName);
+
+        var testId = testPage
+                         .isLoaded(targetTestName)
+                         .getTestId();
+
+        testPage.assertThat(expectedTest);
+
+        TestsController testsController = new TestsController().withToken(authToken);
+        testsController.deleteTest(PROJECT_ID, testId);
     }
 }

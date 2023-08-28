@@ -18,7 +18,7 @@ public class ProjectsPageAsserts {
 
         baseTile.$("h3").shouldHave(text(expectedProjectTile.getName())
                                         .because("Expected project name is equal to " + expectedProjectTile.getName()));
-        baseTile.$("p").shouldHave(text(expectedProjectTile.getCount())
+        baseTile.$("p").shouldHave(text(String.valueOf(expectedProjectTile.getCount()))
                                        .because("Expected project count is equal to " + expectedProjectTile.getCount()), text("tests"));
         baseTile.$("img").shouldBe(visible
                                        .because("Expected project count is equal to " + expectedProjectTile.getCount()));

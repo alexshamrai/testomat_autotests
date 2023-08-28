@@ -6,16 +6,15 @@ import lombok.Data;
 
 @Data
 @Builder
-public class BaseProjectInfo {
+public class BaseTestInfo {
 
     private String name;
-    private int count;
-    private ProjectType label;
+    private TestType testType;
 
     @AllArgsConstructor
-    public enum ProjectType {
-        CLASSICAL("Classical"),
-        BDD("BDD");
+    public enum TestType {
+        MANUAL("manual"),
+        AUTOMATED("automated");
 
         public final String label;
 
@@ -24,5 +23,4 @@ public class BaseProjectInfo {
             return label;
         }
     }
-
 }
