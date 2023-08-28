@@ -1,17 +1,15 @@
 package io.testomat.ui.asserts;
 
 import io.testomat.ui.data.BaseSuiteInfo;
+import lombok.AllArgsConstructor;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
+@AllArgsConstructor
 public class SuitePageAsserts {
 
     private final BaseSuiteInfo expectedSuiteTitle;
-
-    public SuitePageAsserts(BaseSuiteInfo expectedSuiteTitle) {
-        this.expectedSuiteTitle = expectedSuiteTitle;
-    }
 
     public SuitePageAsserts hasCorrectInfo() {
 
