@@ -1,9 +1,13 @@
 package io.testomat.selenide;
 
+import io.testomat.api.suites.SuitesController;
 import io.testomat.api.tests.TestsController;
 import io.testomat.api.tests.model.TestsRequest;
+import io.testomat.ui.MainPage;
 import io.testomat.ui.ProjectsPage;
+import io.testomat.ui.SuitePage;
 import io.testomat.ui.data.BaseProjectInfo;
+import io.testomat.ui.data.BaseSuiteInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,18 +18,20 @@ import static io.testomat.ui.Preloaders.disappearsMainPreloader;
 public class ProjectsTest extends BaseTest {
 
     ProjectsPage projectsPage = new ProjectsPage();
+    SuitePage suitesPage = new SuitePage();
+    MainPage mainPage = new MainPage();
 
     private final String PROJECT_ID = "baseproject";
     private final String SUITE_ID = "b2d3c681";
 
     @BeforeEach
     void openLoginForm() {
-        openPageAsLoggedInUser("/projects/new");
     }
 
     @Test
     @DisplayName("Create new project and delete it SOFT")
     void createNewProjectAndDeleteIt() {
+        openPageAsLoggedInUser("/projects/new");
         var targetProjectName = faker.rockBand().name();
         projectsPage
             .isLoaded()
@@ -55,9 +61,34 @@ public class ProjectsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Create test suite")
+    @DisplayName("Create test suite SOFT")
     void createNewTestSuite() {
-        // TODO implement the test
+        openPageAsLoggedInUser("/projects");
+        mainPage
+            .isLoaded()
+            .openProjectByName("BaseProject");
+
+        var targetTestSuiteName = faker.witcher().quote();
+        var expectedSuite = BaseSuiteInfo.builder()
+                                         .name(targetTestSuiteName)
+                                         .testsCount(0)
+                                         .build();
+
+        projectsPage
+            .projectIsOpen("BaseProject")
+            .createTestSuite(targetTestSuiteName)
+            .closeSidebar();
+
+        var suiteId = projectsPage
+                          .openSuiteByName(targetTestSuiteName)
+                          .getSuiteId();
+
+        suitesPage
+            .assertThat(expectedSuite)
+            .hasCorrectInfo();
+
+        var suitesController = new SuitesController().withToken(authToken);
+        suitesController.deleteSuite("BaseProject", suiteId);
     }
 
     @Test
@@ -74,12 +105,6 @@ public class ProjectsTest extends BaseTest {
         testsController.deleteTest(PROJECT_ID, testId);
     }
 
-    @Test
-    @DisplayName("Check project menu sidebar")
-    void checkProjectMenuSidebar() {
-        // TODO implement the test
-    }
-
     private TestsRequest getTestDto() {
         return TestsRequest.builder().
                            data(TestsRequest.Data.builder()
@@ -92,5 +117,4 @@ public class ProjectsTest extends BaseTest {
                                                                                     .build())
                                                  .build()).build();
     }
-
 }

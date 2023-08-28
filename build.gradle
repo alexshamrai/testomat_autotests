@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation(
-            'com.codeborne:selenide:6.15.0',
+            'com.codeborne:selenide:6.17.0',
             'com.github.javafaker:javafaker:1.0.2',
             'io.rest-assured:rest-assured:5.3.1',
             'com.fasterxml.jackson.core:jackson-databind:2.15.2',
