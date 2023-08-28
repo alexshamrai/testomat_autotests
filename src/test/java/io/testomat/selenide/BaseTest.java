@@ -12,7 +12,7 @@ import com.codeborne.selenide.junit5.TextReportExtension;
 import io.testomat.api.login.CredentialsLoader;
 import io.testomat.api.login.LoginController;
 import io.testomat.api.login.model.Credentials;
-import io.testomat.selenide.common.SoftAssertExtension;
+import io.testomat.selenide.common.AssertionModeExtension;
 import com.github.javafaker.Faker;
 import io.testomat.ui.LoginSteps;
 import org.junit.jupiter.api.AfterEach;
@@ -24,7 +24,7 @@ import org.openqa.selenium.Cookie;
 import static com.codeborne.selenide.Selenide.open;
 import static io.testomat.api.common.ConfigurationProperties.getProperty;
 
-@ExtendWith({SoftAssertsExtension.class, SoftAssertExtension.class})
+@ExtendWith({SoftAssertsExtension.class, AssertionModeExtension.class})
 public abstract class BaseTest {
 
     LoginSteps loginSteps = new LoginSteps();

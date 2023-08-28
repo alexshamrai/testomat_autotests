@@ -7,7 +7,9 @@ import io.testomat.ui.data.BaseProjectInfo;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.confirm;
+import static com.codeborne.selenide.Selenide.page;
 
 public class ProjectsPage extends BasePage{
 
@@ -53,4 +55,19 @@ public class ProjectsPage extends BasePage{
         confirm("Are you sure? This action cannot be reversed");
         return this;
     }
+
+    public ProjectsPage createTestSuite(String testSuiteName) {
+        $("#ember42").click();
+        $$("span").findBy(text("Suite")).click();
+        $("[placeholder='Title']").val(testSuiteName);
+        $$(".primary-btn").findBy(text("Save")).click();
+        return this;
+    }
+
+    public SuitePage openSuiteByName(String targetTestSuiteName) {
+        $$("span").findBy(text(targetTestSuiteName)).click();
+        return page(SuitePage.class);
+    }
+
+
 }

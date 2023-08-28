@@ -1,19 +1,17 @@
 package io.testomat.ui.asserts;
 
 import io.testomat.ui.data.BaseProjectInfo;
+import lombok.AllArgsConstructor;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selenide.$;
 
+@AllArgsConstructor
 public class ProjectsPageAsserts {
 
     private final BaseProjectInfo expectedProjectTile;
-
-    public ProjectsPageAsserts(BaseProjectInfo expectedProjectTile) {
-        this.expectedProjectTile = expectedProjectTile;
-    }
 
     public ProjectsPageAsserts hasCorrectInfo() {
         var baseTile = $(by("title", expectedProjectTile.getName()));

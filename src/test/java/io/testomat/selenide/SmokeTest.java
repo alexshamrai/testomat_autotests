@@ -3,6 +3,7 @@ package io.testomat.selenide;
 import io.testomat.api.login.CredentialsLoader;
 import io.testomat.api.login.model.Credentials;
 import io.testomat.ui.MainPage;
+import io.testomat.ui.ProjectsPage;
 import io.testomat.ui.SignInPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
