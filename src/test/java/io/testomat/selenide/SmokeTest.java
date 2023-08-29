@@ -28,6 +28,5 @@ public class SmokeTest extends BaseTest {
     void userShouldLogin() {
         projectsPage
             .isLoaded();
-        // TODO add main page assertions
     }
 }
