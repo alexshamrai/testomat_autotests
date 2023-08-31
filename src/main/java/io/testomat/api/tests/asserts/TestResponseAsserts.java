@@ -1,16 +1,14 @@
 package io.testomat.api.tests.asserts;
 
 import io.testomat.api.tests.model.TestResponse;
+import lombok.AllArgsConstructor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@AllArgsConstructor
 public class TestResponseAsserts {
 
     private final TestResponse testResponse;
-
-    public TestResponseAsserts(TestResponse testResponse) {
-        this.testResponse = testResponse;
-    }
 
     public TestResponseAsserts testIdIs(String expectedId) {
         var actualTestId = testResponse.getData().getId();

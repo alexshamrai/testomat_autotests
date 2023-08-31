@@ -9,15 +9,14 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 public class AssertionModeExtension implements BeforeEachCallback, AfterEachCallback {
 
     @Override
-    public void afterEach(ExtensionContext context) throws Exception {
+    public void afterEach(ExtensionContext context) {
         Configuration.assertionMode = AssertionMode.STRICT;
     }
 
     @Override
-    public void beforeEach(ExtensionContext context) throws Exception {
+    public void beforeEach(ExtensionContext context) {
         if (context.getDisplayName().toLowerCase().contains("soft")) {
             Configuration.assertionMode = AssertionMode.SOFT;
         }
     }
-
 }

@@ -1,16 +1,14 @@
 package io.testomat.api.suites;
 
 import io.testomat.api.suites.model.SuiteResponse;
+import lombok.AllArgsConstructor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SuiteResponseAsserts extends SuiteResponse {
+@AllArgsConstructor
+public class SuiteResponseAsserts {
 
     private final SuiteResponse suiteResponse;
-
-    public SuiteResponseAsserts(SuiteResponse suiteResponse) {
-        this.suiteResponse = suiteResponse;
-    }
 
     public SuiteResponseAsserts idIsNotNull() {
         assertThat(suiteResponse.getData().getId())
