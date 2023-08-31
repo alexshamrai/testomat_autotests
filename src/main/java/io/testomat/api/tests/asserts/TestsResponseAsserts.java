@@ -1,16 +1,14 @@
 package io.testomat.api.tests.asserts;
 
 import io.testomat.api.tests.model.TestsResponse;
+import lombok.AllArgsConstructor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TestsResponseAsserts extends TestsResponse {
+@AllArgsConstructor
+public class TestsResponseAsserts  {
 
     private final TestsResponse testsResponse;
-
-    public TestsResponseAsserts(TestsResponse testsResponse) {
-        this.testsResponse = testsResponse;
-    }
 
     public TestsResponseAsserts hasTests() {
         var testsAmount = testsResponse.getData().size();

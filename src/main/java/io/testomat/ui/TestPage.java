@@ -2,9 +2,7 @@ package io.testomat.ui;
 
 import java.time.Duration;
 
-import io.testomat.ui.asserts.SuitePageAsserts;
 import io.testomat.ui.asserts.TestPageAsserts;
-import io.testomat.ui.data.BaseSuiteInfo;
 import io.testomat.ui.data.BaseTestInfo;
 
 import static com.codeborne.selenide.Condition.text;

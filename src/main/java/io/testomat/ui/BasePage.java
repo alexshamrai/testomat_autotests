@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public abstract class BasePage {
 
-    public String baseDeviceType = "desktop";
+    private static final String baseDeviceType = "desktop";
 
     public SelenideElement find(String childSelector) {
         return $("#content-" + baseDeviceType + " " + childSelector);
