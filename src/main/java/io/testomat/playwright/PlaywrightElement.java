@@ -2,7 +2,6 @@ package io.testomat.playwright;
 
 import com.microsoft.playwright.Locator;
 
-
 import io.testomat.playwright.condition.Condition;
 import lombok.Data;
 
@@ -10,7 +9,6 @@ import lombok.Data;
 public class PlaywrightElement {
     
     private final Locator locator;
-
 
     public PlaywrightElement fill(String text) {
         locator.fill(text);

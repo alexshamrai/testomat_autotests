@@ -6,12 +6,15 @@ import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.Cookie;
 import lombok.Data;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class PlaywrightWrapper {
@@ -26,7 +29,7 @@ public class PlaywrightWrapper {
                 new BrowserType.LaunchOptions()
                     .setHeadless(Configuration.headless)
                     .setTimeout(Configuration.browserToStartTimeout)
-                    .setDevtools(false)
+                    .setDevtools(Configuration.devTools)
                     .setSlowMo(Configuration.poolingInterval)
             );
             BrowserContext context = browser.newContext();
@@ -62,6 +65,27 @@ public class PlaywrightWrapper {
         return new PlaywrightElement(getEnvironment().getPage().locator(selector).filter(
             new Locator.FilterOptions().setHasText(text)
         ));
+    }
+
+    public void confirm(String text) {
+        getEnvironment().getPage().onceDialog(dialog -> {
+            if (dialog.message().equals(text)) {
+                dialog.accept();
+            }
+        });
+    }
+
+    public void addCookies(List<Cookie> cookies) {
+        long threadId = Thread.currentThread().getId();
+        BrowserContext context = playwrightEnvironment.get(threadId).getContext();
+        List<Cookie> adjustedCookies = cookies.stream()
+                                              .map(cookie -> {
+                                                  cookie.setPath("/");
+                                                  cookie.setDomain("uat.testomat.io");
+                                                  return cookie;
+                                              })
+                                              .collect(Collectors.toList());
+        context.addCookies(adjustedCookies);
     }
 
     @Data

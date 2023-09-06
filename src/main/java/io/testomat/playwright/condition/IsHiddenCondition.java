@@ -1,6 +1,5 @@
 package io.testomat.playwright.condition;
 
-
 import com.microsoft.playwright.assertions.LocatorAssertions;
 import io.testomat.playwright.Configuration;
 import io.testomat.playwright.PlaywrightElement;
