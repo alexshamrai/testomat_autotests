@@ -19,5 +19,4 @@ public class TextCondition implements Condition {
             new LocatorAssertions.HasTextOptions().setTimeout(Configuration.defaultTimeout)
         );
     }
-
 }
