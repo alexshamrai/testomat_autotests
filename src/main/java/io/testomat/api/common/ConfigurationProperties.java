@@ -1,25 +1,11 @@
 package io.testomat.api.common;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
 public class ConfigurationProperties {
 
-    private static final Properties properties = new Properties();
-    public static final String RESOURCE_NAME = "configuration.properties";
+    public static final Config CONFIG = ConfigFactory.load();
 
-    static {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        try (InputStream resourceStream = loader.getResourceAsStream(RESOURCE_NAME)) {
-            properties.load(resourceStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String getProperty(String key) {
-        return properties.getProperty(key);
-    }
 }
 

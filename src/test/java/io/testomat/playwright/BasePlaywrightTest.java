@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import static io.testomat.playwright.PlaywrightWrapper.addCookies;
 import static io.testomat.playwright.PlaywrightWrapper.getEnvironment;
 import static io.testomat.playwright.PlaywrightWrapper.open;
+import static io.testomat.api.common.ConfigurationProperties.CONFIG;
 
 public abstract class BasePlaywrightTest {
 
@@ -20,10 +21,10 @@ public abstract class BasePlaywrightTest {
     String authToken;
 
     static {
-        Configuration.baseUrl = "https://uat.testomat.io";
-        Configuration.poolingInterval = 50;
-        Configuration.defaultTimeout = 10000;
-        Configuration.headless = false;
+        Configuration.baseUrl = CONFIG.getString("base.url");
+        Configuration.poolingInterval = CONFIG.getLong("pooling.interval");
+        Configuration.defaultTimeout = CONFIG.getLong("pw.default.timeout");
+        Configuration.headless = CONFIG.getBoolean("headless");
     }
 
     @BeforeEach

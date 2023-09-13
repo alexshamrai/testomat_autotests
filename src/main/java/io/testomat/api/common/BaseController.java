@@ -3,11 +3,11 @@ package io.testomat.api.common;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 
-import static io.testomat.api.common.ConfigurationProperties.getProperty;
+import static io.testomat.api.common.ConfigurationProperties.CONFIG;
 
 public abstract class BaseController<T> {
 
-    private final String baseUrl = getProperty("base.url");
+    private final String baseUrl = CONFIG.getString("base.url");
     private String authToken;
 
     public T withToken(String authToken) {
