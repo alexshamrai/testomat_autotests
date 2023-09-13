@@ -20,5 +20,4 @@ public class PlaywrightWrapperTest extends BasePlaywrightTest {
         find(".back").click();
         find("div.flex > h2").shouldHas(Condition.text(targetName));
     }
-
 }

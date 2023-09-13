@@ -8,7 +8,7 @@ import io.restassured.specification.FilterableResponseSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static io.testomat.api.common.ConfigurationProperties.getProperty;
+import static io.testomat.api.common.ConfigurationProperties.CONFIG;
 
 public class LogRequestFilter implements OrderedFilter {
 
@@ -35,7 +35,7 @@ public class LogRequestFilter implements OrderedFilter {
     }
 
     private boolean needToLogResponse() {
-        return Boolean.parseBoolean(getProperty("log.response"));
+        return CONFIG.getBoolean("log.response");
     }
 
     public int getOrder() {
