@@ -34,15 +34,13 @@ public class ProjectsPage extends BasePage{
 
     public ProjectsPage openProjectSettngs() {
         PlaywrightWrapper.find(".md-icon-cog").click();
-        PlaywrightWrapper.find(".ember-view", "Project").click();
+        PlaywrightWrapper.find("a.ember-view", "Project").click();
         return this;
     }
 
     public ProjectsPage deleteProject() {
-        PlaywrightWrapper.find(".red-btn").click();
-        PlaywrightWrapper.confirm("Are you sure?");
-        PlaywrightWrapper.find(".red-btn").click();
-        PlaywrightWrapper.confirm("Are you sure? This action cannot be reversed");
+        PlaywrightWrapper.clickAndConfirmDialog(".red-btn","Are you sure?");
+        PlaywrightWrapper.clickAndConfirmDialog(".red-btn","Are you sure? This action cannot be reversed");
         return this;
     }
 
