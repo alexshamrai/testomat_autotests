@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import static io.testomat.api.common.ConfigurationProperties.CONFIG;
+
 @UtilityClass
 public class PlaywrightWrapper {
 
@@ -79,10 +81,9 @@ public class PlaywrightWrapper {
         long threadId = Thread.currentThread().getId();
         BrowserContext context = playwrightEnvironment.get(threadId).getContext();
         List<Cookie> adjustedCookies = cookies.stream()
-                                              .map(cookie -> {
+                                              .peek(cookie -> {
                                                   cookie.setPath("/");
-                                                  cookie.setDomain("uat.testomat.io");
-                                                  return cookie;
+                                                  cookie.setDomain(CONFIG.getString("app.type") + ".testomat.io");
                                               })
                                               .collect(Collectors.toList());
         context.addCookies(adjustedCookies);
