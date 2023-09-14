@@ -36,7 +36,8 @@ public class ProjectsTest extends BasePlaywrightTest {
             openProjectByName(targetProjectName)
             .projectIsOpen(targetProjectName)
             .openProjectSettngs()
-            .deleteProject();
+            .deleteProject()
+            .isLoaded();
 
         projectsPage
             .assertThat(expectedProjectTile)
