@@ -18,7 +18,7 @@ public class ProjectsPage extends BasePage{
     }
 
     public ProjectsPage isLoaded() {
-        PlaywrightWrapper.find("h2").shouldBe(text("Projects"));
+        PlaywrightWrapper.find("h2", "Projects");
         return this;
     }
 

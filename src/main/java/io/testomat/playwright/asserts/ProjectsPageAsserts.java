@@ -1,9 +1,12 @@
 package io.testomat.playwright.asserts;
 
+import java.util.List;
+
 import com.microsoft.playwright.Locator;
 import io.testomat.playwright.PlaywrightWrapper;
 import io.testomat.ui.data.BaseProjectInfo;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -33,11 +36,15 @@ public class ProjectsPageAsserts {
 
     public ProjectsPageAsserts isDeleted() {
         var page = PlaywrightWrapper.getEnvironment().getPage();
+        page.waitForTimeout(1000);
 
-        String actualName = page.locator("h3").innerText();
-        assertThat(actualName).isNotEqualTo(expectedProjectTile.getName());
+        var allProjects = page.locator("h3").allTextContents();
+        boolean hasExpectedText = allProjects.stream().anyMatch(text -> text.equals(expectedProjectTile.getName()));
+
+        assertThat(hasExpectedText).withFailMessage("Element with text " + expectedProjectTile.getName() + " should not be present").isFalse();
 
         return this;
     }
+
 }
 
