@@ -69,12 +69,14 @@ public class PlaywrightWrapper {
         ));
     }
 
-    public void confirm(String text) {
-        getEnvironment().getPage().onceDialog(dialog -> {
+    public void clickAndConfirmDialog(String locator, String text) {
+        var page = getEnvironment().getPage();
+        page.onceDialog(dialog -> {
             if (dialog.message().equals(text)) {
                 dialog.accept();
             }
         });
+        page.locator(locator).click();
     }
 
     public void addCookies(List<Cookie> cookies) {
