@@ -15,11 +15,12 @@ import org.openqa.selenium.Cookie;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.requestSpecification;
+import static io.testomat.api.common.ConfigurationProperties.CONFIG;
 
 public class LoginSteps {
 
     static {
-        baseURI = "https://uat.testomat.io";
+        baseURI = CONFIG.getString("base.url");
         requestSpecification = new RequestSpecBuilder()
                                    .log(LogDetail.ALL)
                                    .build();
