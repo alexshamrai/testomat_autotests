@@ -69,6 +69,16 @@ public class PlaywrightWrapper {
         ));
     }
 
+    public List<PlaywrightElement> findElements(String selector, String text) {
+        List<PlaywrightElement> elements = getEnvironment().getPage().locator(selector).filter(
+                                                               new Locator.FilterOptions().setHasText(text)
+                                                           ).all().stream()
+                                                           .map(PlaywrightElement::new)
+                                                           .collect(Collectors.toList());
+
+        return elements;
+    }
+
     public void clickAndConfirmDialog(String locator, String text) {
         var page = getEnvironment().getPage();
         page.onceDialog(dialog -> {

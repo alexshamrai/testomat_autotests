@@ -18,6 +18,6 @@ public class PlaywrightWrapperTest extends BasePlaywrightTest {
         find("[name=commit]").click();
         find("#app-loader").shouldBe(Condition.hidden);
         find(".back").click();
-        find("div.flex > h2").shouldHas(Condition.text(targetName));
+        find("div.flex > h2").shouldHave(Condition.text(targetName));
     }
 }

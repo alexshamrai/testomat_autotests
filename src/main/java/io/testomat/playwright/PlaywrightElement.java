@@ -40,9 +40,8 @@ public class PlaywrightElement {
         return this;
     }
 
-    public PlaywrightElement shouldHas(Condition condition) {
-        condition.verify(this);
-        return this;
+    public String innerText() {
+        return locator.innerText();
     }
 
 }
