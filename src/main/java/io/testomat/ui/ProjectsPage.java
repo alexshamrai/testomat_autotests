@@ -49,7 +49,7 @@ public class ProjectsPage extends BasePage{
 
     public ProjectsPage openProjectSettngs() {
         $(".md-icon-cog").click();
-        $("#ember24").click();
+        $$("a.ember-view").findBy(text("Project")).click();
         return this;
     }
 

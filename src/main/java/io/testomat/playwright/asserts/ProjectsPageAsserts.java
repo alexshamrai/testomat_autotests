@@ -1,6 +1,5 @@
 package io.testomat.playwright.asserts;
 
-
 import com.microsoft.playwright.Locator;
 import io.testomat.playwright.PlaywrightWrapper;
 import io.testomat.ui.data.BaseProjectInfo;
@@ -35,11 +34,11 @@ public class ProjectsPageAsserts {
     public ProjectsPageAsserts isDeleted() {
         var page = PlaywrightWrapper.getEnvironment().getPage();
         page.waitForTimeout(1000);
-//TODO use findElements
-        var allProjects = page.locator("h3").allTextContents();
-        boolean hasExpectedText = allProjects.stream().anyMatch(text -> text.equals(expectedProjectTile.getName()));
 
-        assertThat(hasExpectedText).withFailMessage("Element with text " + expectedProjectTile.getName() + " should not be present").isFalse();
+        var allProjects = PlaywrightWrapper.findElements("h3", expectedProjectTile.getName());
+        if (!allProjects.isEmpty()) {
+            throw new AssertionError(expectedProjectTile.getName() + " should be deleted");
+        }
 
         return this;
     }
