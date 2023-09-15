@@ -11,6 +11,10 @@ public interface Condition {
         return new TextCondition(expectedText);
     }
 
+    static Condition containingText(String expectedText) {
+        return new TextContainingCondition(expectedText);
+    }
+
     void verify(PlaywrightElement playwrightElement);
 
 }
