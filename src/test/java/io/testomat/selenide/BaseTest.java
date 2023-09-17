@@ -14,7 +14,7 @@ import io.testomat.api.login.LoginController;
 import io.testomat.api.login.model.Credentials;
 import io.testomat.selenide.common.AssertionModeExtension;
 import com.github.javafaker.Faker;
-import io.testomat.ui.LoginSteps;
+import io.testomat.ui.common.LoginSteps;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.Cookie;
 
 import static com.codeborne.selenide.Selenide.open;
-import static io.testomat.api.common.ConfigurationProperties.CONFIG;
+import static io.testomat.ConfigurationProperties.CONFIG;
 
 @ExtendWith({SoftAssertsExtension.class, AssertionModeExtension.class})
 public abstract class BaseTest {

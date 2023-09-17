@@ -2,18 +2,18 @@ package io.testomat.selenide;
 
 import io.testomat.api.suites.SuitesController;
 import io.testomat.api.tests.TestsController;
-import io.testomat.ui.ProjectsPage;
-import io.testomat.ui.SuitePage;
-import io.testomat.ui.TestPage;
-import io.testomat.ui.data.BaseProjectInfo;
-import io.testomat.ui.data.BaseSuiteInfo;
-import io.testomat.ui.data.BaseTestInfo;
+import io.testomat.ui.selenide.pages.ProjectsPage;
+import io.testomat.ui.selenide.pages.SuitePage;
+import io.testomat.ui.selenide.pages.TestPage;
+import io.testomat.ui.common.data.BaseProjectInfo;
+import io.testomat.ui.common.data.BaseSuiteInfo;
+import io.testomat.ui.common.data.BaseTestInfo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
-import static io.testomat.ui.Preloaders.disappearsMainPreloader;
-import static io.testomat.ui.data.BaseTestInfo.TestType.MANUAL;
+import static io.testomat.ui.selenide.Preloaders.disappearsMainPreloader;
+import static io.testomat.ui.common.data.BaseTestInfo.TestType.MANUAL;
 
 public class ProjectsTest extends BaseTest {
 

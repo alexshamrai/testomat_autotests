@@ -3,7 +3,7 @@ package io.testomat.api.login;
 import io.testomat.api.login.model.Credentials;
 import lombok.experimental.UtilityClass;
 
-import static io.testomat.api.common.ConfigurationProperties.CONFIG;
+import static io.testomat.ConfigurationProperties.CONFIG;
 
 
 

@@ -3,7 +3,7 @@ package io.testomat.api.common;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 
-import static io.testomat.api.common.ConfigurationProperties.CONFIG;
+import static io.testomat.ConfigurationProperties.CONFIG;
 
 public abstract class BaseController<T> {
 

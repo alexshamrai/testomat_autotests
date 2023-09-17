@@ -4,14 +4,16 @@ import com.github.javafaker.Faker;
 import io.testomat.api.login.CredentialsLoader;
 import io.testomat.api.login.LoginController;
 import io.testomat.api.login.model.Credentials;
-import io.testomat.ui.LoginSteps;
+import io.testomat.ui.playwright.Configuration;
+import io.testomat.ui.playwright.PlaywrightWrapper;
+import io.testomat.ui.common.LoginSteps;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import static io.testomat.playwright.PlaywrightWrapper.addCookies;
-import static io.testomat.playwright.PlaywrightWrapper.getEnvironment;
-import static io.testomat.playwright.PlaywrightWrapper.open;
-import static io.testomat.api.common.ConfigurationProperties.CONFIG;
+import static io.testomat.ui.playwright.PlaywrightWrapper.addCookies;
+import static io.testomat.ui.playwright.PlaywrightWrapper.getEnvironment;
+import static io.testomat.ui.playwright.PlaywrightWrapper.open;
+import static io.testomat.ConfigurationProperties.CONFIG;
 
 public abstract class BasePlaywrightTest {
 
