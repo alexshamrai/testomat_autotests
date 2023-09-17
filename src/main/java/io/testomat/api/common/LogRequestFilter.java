@@ -8,7 +8,7 @@ import io.restassured.specification.FilterableResponseSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static io.testomat.api.common.ConfigurationProperties.CONFIG;
+import static io.testomat.ConfigurationProperties.CONFIG;
 
 public class LogRequestFilter implements OrderedFilter {
 
