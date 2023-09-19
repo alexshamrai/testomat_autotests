@@ -70,13 +70,11 @@ public class PlaywrightWrapper {
     }
 
     public List<PlaywrightElement> findElements(String selector, String text) {
-        List<PlaywrightElement> elements = getEnvironment().getPage().locator(selector).filter(
-                                                               new Locator.FilterOptions().setHasText(text)
-                                                           ).all().stream()
-                                                           .map(PlaywrightElement::new)
-                                                           .collect(Collectors.toList());
 
-        return elements;
+        return getEnvironment().getPage().locator(selector).filter(
+                                   new Locator.FilterOptions().setHasText(text)).all().stream()
+                               .map(PlaywrightElement::new)
+                               .collect(Collectors.toList());
     }
 
     public void clickAndConfirmDialog(String locator, String text) {
