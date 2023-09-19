@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id ('io.freefair.lombok') version "8.1.0"
+    id('io.freefair.lombok') version "8.1.0"
 }
 
 group = 'io.testomat'
@@ -30,4 +30,28 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+task smokeTests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'Smoke'
+    }
+}
+
+task apiTests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'api'
+    }
+}
+
+task uiSelenideTests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'selenide'
+    }
+}
+
+task uiPlaywrightTests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'playwright'
+    }
 }

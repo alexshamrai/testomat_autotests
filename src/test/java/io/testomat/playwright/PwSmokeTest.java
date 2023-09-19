@@ -7,10 +7,12 @@ import io.testomat.ui.playwright.pages.ProjectsPage;
 import io.testomat.ui.playwright.pages.SignInPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.testomat.ui.playwright.PlaywrightWrapper.open;
 
+@Tag("Smoke")
 public class PwSmokeTest extends BasePlaywrightTest {
 
     Credentials credentials = CredentialsLoader.getCredentials();
