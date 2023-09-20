@@ -18,7 +18,8 @@ dependencies {
             'com.fasterxml.jackson.core:jackson-databind:2.15.2',
             'org.assertj:assertj-core:3.24.2',
             'com.microsoft.playwright:playwright:1.35.1',
-            'com.typesafe:config:1.0.2'
+            'com.typesafe:config:1.0.2',
+            'com.aventstack:extentreports:5.1.0'
     )
 
 
