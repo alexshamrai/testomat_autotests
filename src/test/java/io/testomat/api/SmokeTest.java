@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag("Smoke")
-public class SmokeTest {
+public class SmokeTest extends BaseTest {
 
     @Test
     void shouldLoginWithValidCredentials() {

@@ -5,8 +5,6 @@ import lombok.experimental.UtilityClass;
 
 import static io.testomat.ConfigurationProperties.CONFIG;
 
-
-
 @UtilityClass
 public class CredentialsLoader {
 
