@@ -9,8 +9,8 @@ import static io.testomat.ConfigurationProperties.CONFIG;
 public class CredentialsLoader {
 
     public static Credentials getCredentials() {
-        String username = CONFIG.getString("user.email");
-        String password = CONFIG.getString("user.password");
+        String username = System.getenv("USER_EMAIL");
+        String password = System.getenv("USER_PASSWORD");
         return new Credentials(username, password);
     }
 }
