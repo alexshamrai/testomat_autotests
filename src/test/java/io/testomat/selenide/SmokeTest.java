@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 
-@Tag("Smoke")
 public class SmokeTest extends BaseTest {
 
     ProjectsPage projectsPage = new ProjectsPage();

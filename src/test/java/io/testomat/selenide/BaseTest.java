@@ -42,6 +42,7 @@ public abstract class BaseTest {
         Configuration.browserSize = CONFIG.getString("browser.size");
         Configuration.clickViaJs = CONFIG.getBoolean("click.via.js");
         Configuration.fastSetValue = CONFIG.getBoolean("fast.set.value");
+        Configuration.headless = CONFIG.getBoolean("headless");
         Configuration.remoteReadTimeout = Duration.ofSeconds(CONFIG.getLong("default.timeout")).toMillis();
         Configuration.remoteConnectionTimeout = Duration.ofSeconds(CONFIG.getLong("default.timeout")).toMillis();
     }
