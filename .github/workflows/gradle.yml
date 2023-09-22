@@ -27,4 +27,10 @@ jobs:
           USER_PASSWORD: ${{ secrets.PASSWORD }}
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
-          arguments: smokeTests
+          arguments: smokeTests -i
+      - name: Upload Test Report
+        if: always() # Run this step even if the build step fails
+        uses: actions/upload-artifact@v2
+        with:
+          name: gradle-test-report
+          path: build/reports/tests/
