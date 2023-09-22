@@ -15,7 +15,7 @@ public class SignInPage extends BasePage {
     }
 
     public SignInPage isLoaded() {
-        find("#new_user").shouldBe(Condition.visible, Duration.ofSeconds(20));
+        find("#user_email").shouldBe(Condition.visible, Duration.ofSeconds(20));
         return this;
     }
 }
