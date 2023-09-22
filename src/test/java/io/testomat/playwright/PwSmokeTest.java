@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.testomat.ui.playwright.PlaywrightWrapper.open;
 
+@Tag("Smoke")
 public class PwSmokeTest extends BasePlaywrightTest {
 
     Credentials credentials = CredentialsLoader.getCredentials();
