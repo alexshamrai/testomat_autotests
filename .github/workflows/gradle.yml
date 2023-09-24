@@ -31,7 +31,9 @@ jobs:
           arguments: smokeTests -i
       - name: Upload Test Report
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: gradle-test-report
-          path: build/reports/tests/
+          name: test-report
+          path: |
+            build/reports/tests/
+            build/extentreports/
