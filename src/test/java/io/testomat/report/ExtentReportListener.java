@@ -26,7 +26,7 @@ public class ExtentReportListener implements BeforeAllCallback, BeforeTestExecut
 
     @Override
     public void beforeAll(ExtensionContext context) {
-        var filename = String.format("target/report/run_%d/%s_Results.html", System.currentTimeMillis(), context.getDisplayName());
+        var filename = String.format("build/extentreports/run_%d/%s_Results.html", System.currentTimeMillis(), context.getDisplayName());
         var htmlReporter = new ExtentSparkReporter(filename);
         reports = new ExtentReports();
         reports.attachReporter(htmlReporter);
