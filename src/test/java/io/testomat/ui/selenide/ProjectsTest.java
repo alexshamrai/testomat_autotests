@@ -1,4 +1,4 @@
-package io.testomat.selenide;
+package io.testomat.ui.selenide;
 
 import io.testomat.api.suites.SuitesController;
 import io.testomat.api.tests.TestsController;

@@ -1,14 +1,14 @@
-package io.testomat.playwright;
+package io.testomat.ui.selenide;
 
 import java.util.List;
 
-import io.testomat.ui.playwright.pages.CompaniesPage;
-import io.testomat.ui.playwright.pages.CompanyPage;
+import io.testomat.ui.selenide.pages.CompaniesPage;
+import io.testomat.ui.selenide.pages.CompanyPage;
 import io.testomat.ui.common.data.BaseCompanyInfo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class PwCompaniesTest extends BasePlaywrightTest {
+public class CompaniesTest extends BaseTest{
 
     private static final String DEFAULT_COMPANY_NAME = "olexiyshamray's Company";
     public static final String DEFAULT_USER = "olexiyshamray";
@@ -18,7 +18,7 @@ public class PwCompaniesTest extends BasePlaywrightTest {
     CompanyPage companyPage = new CompanyPage();
 
     @Test
-    @DisplayName("Create new company and delete it")
+    @DisplayName("Create new company and delete it SOFT")
     void createNewCompanyAndDeleteIt() {
         openPageAsLoggedInUser("/companies");
 
@@ -29,10 +29,12 @@ public class PwCompaniesTest extends BasePlaywrightTest {
         companyPage
             .isLoaded(DEFAULT_COMPANY_NAME);
 
+
         var expectedCompany = getExpectedCompanyInfo();
         companyPage
             .assertThat(expectedCompany)
             .hasCorrectInfo();
+
 
         companyPage
             .deleteCompany();

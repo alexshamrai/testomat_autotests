@@ -1,22 +1,21 @@
-package io.testomat.playwright;
+package io.testomat.ui.selenide;
 
 import io.testomat.api.login.CredentialsLoader;
 import io.testomat.api.login.model.Credentials;
-
-import io.testomat.ui.playwright.pages.ProjectsPage;
-import io.testomat.ui.playwright.pages.SignInPage;
+import io.testomat.ui.selenide.pages.ProjectsPage;
+import io.testomat.ui.selenide.pages.SignInPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static io.testomat.ui.playwright.PlaywrightWrapper.open;
+import static com.codeborne.selenide.Selenide.open;
 
 @Tag("Smoke")
-public class PwSmokeTest extends BasePlaywrightTest {
+public class SmokeTest extends BaseTest {
 
-    Credentials credentials = CredentialsLoader.getCredentials();
     ProjectsPage projectsPage = new ProjectsPage();
+    Credentials credentials = CredentialsLoader.getCredentials();
 
     @BeforeEach
     void openLoginForm() {

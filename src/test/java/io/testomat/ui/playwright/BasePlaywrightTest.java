@@ -1,4 +1,4 @@
-package io.testomat.playwright;
+package io.testomat.ui.playwright;
 
 import com.github.javafaker.Faker;
 import io.testomat.api.login.CredentialsLoader;

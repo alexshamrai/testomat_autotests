@@ -1,4 +1,4 @@
-package io.testomat.selenide;
+package io.testomat.ui.selenide;
 
 import java.time.Duration;
 import java.util.Set;
@@ -12,7 +12,7 @@ import com.codeborne.selenide.junit5.TextReportExtension;
 import io.testomat.api.login.CredentialsLoader;
 import io.testomat.api.login.LoginController;
 import io.testomat.api.login.model.Credentials;
-import io.testomat.selenide.common.AssertionModeExtension;
+import io.testomat.ui.selenide.common.AssertionModeExtension;
 import com.github.javafaker.Faker;
 import io.testomat.ui.common.LoginSteps;
 import org.junit.jupiter.api.AfterEach;
