@@ -1,4 +1,4 @@
-package io.testomat.report;
+package io.testomat.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;

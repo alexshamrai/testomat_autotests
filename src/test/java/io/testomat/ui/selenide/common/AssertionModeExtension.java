@@ -1,4 +1,4 @@
-package io.testomat.selenide.common;
+package io.testomat.ui.selenide.common;
 
 import com.codeborne.selenide.AssertionMode;
 import com.codeborne.selenide.Configuration;

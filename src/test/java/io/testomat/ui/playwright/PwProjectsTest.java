@@ -1,4 +1,4 @@
-package io.testomat.playwright;
+package io.testomat.ui.playwright;
 
 import io.testomat.ui.playwright.pages.ProjectsPage;
 import io.testomat.ui.common.data.BaseProjectInfo;

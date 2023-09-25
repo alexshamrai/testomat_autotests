@@ -1,7 +1,6 @@
-package io.testomat.selenide;
+package io.testomat.ui.selenide;
 
 import com.codeborne.selenide.Configuration;
-import io.testomat.ui.selenide.MenuBar;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
