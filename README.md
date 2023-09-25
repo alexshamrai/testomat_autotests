@@ -13,7 +13,7 @@ UI testing employs [Selenide](https://selenide.org/) and [Playwright](https://pl
 ## 🛠️ Running Tests Locally
 
 To run tests having a user for Testomat.io is required. User credentials should be specified in environment variables:set `USER_EMAIL` and `USER_PASSWORD`.
-Before running tests, make sure that the `USER_EMAIL` and `USER_PASSWORD` environment variables are set in your IDE or via terminal
+Before running tests, make sure that environment variables are set in your IDE or via terminal
 
 ```sh
 export USER_PASSWORD={user_password}
