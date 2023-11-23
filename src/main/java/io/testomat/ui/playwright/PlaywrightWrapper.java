@@ -28,11 +28,11 @@ public class PlaywrightWrapper {
         if (!playwrightEnvironment.containsKey(threadId)) {
             Playwright playwright = Playwright.create();
             Browser browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions()
-                    .setHeadless(Configuration.headless)
-                    .setTimeout(Configuration.browserToStartTimeout)
-                    .setDevtools(Configuration.devTools)
-                    .setSlowMo(Configuration.poolingInterval)
+                    new BrowserType.LaunchOptions()
+                            .setHeadless(Configuration.headless)
+                            .setTimeout(Configuration.browserToStartTimeout)
+                            .setDevtools(Configuration.devTools)
+                            .setSlowMo(Configuration.poolingInterval)
             );
             BrowserContext context = browser.newContext();
             Page page = context.newPage();
@@ -65,16 +65,16 @@ public class PlaywrightWrapper {
 
     public PlaywrightElement find(String selector, String text) {
         return new PlaywrightElement(getEnvironment().getPage().locator(selector).filter(
-            new Locator.FilterOptions().setHasText(text)
+                new Locator.FilterOptions().setHasText(text)
         ));
     }
 
-    public List<PlaywrightElement> findElements(String selector, String text) {
-
-        return getEnvironment().getPage().locator(selector).filter(
-                                   new Locator.FilterOptions().setHasText(text)).all().stream()
-                               .map(PlaywrightElement::new)
-                               .collect(Collectors.toList());
+    public PlaywrightElements findElements(String selector) {
+        var locator = getEnvironment().getPage().locator(selector);
+        var elements = locator.all().stream()
+                .map(PlaywrightElement::new)
+                .collect(Collectors.toList());
+        return new PlaywrightElements(elements);
     }
 
     public void clickAndConfirmDialog(String locator, String text) {
@@ -91,11 +91,11 @@ public class PlaywrightWrapper {
         long threadId = Thread.currentThread().getId();
         BrowserContext context = playwrightEnvironment.get(threadId).getContext();
         List<Cookie> adjustedCookies = cookies.stream()
-                                              .peek(cookie -> {
-                                                  cookie.setPath("/");
-                                                  cookie.setDomain(CONFIG.getString("app.type") + ".testomat.io");
-                                              })
-                                              .collect(Collectors.toList());
+                .peek(cookie -> {
+                    cookie.setPath("/");
+                    cookie.setDomain(CONFIG.getString("app.type") + ".testomat.io");
+                })
+                .collect(Collectors.toList());
         context.addCookies(adjustedCookies);
     }
 
