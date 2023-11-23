@@ -3,9 +3,11 @@ package io.testomat.ui.playwright.asserts;
 import com.microsoft.playwright.Locator;
 import io.testomat.ui.playwright.PlaywrightWrapper;
 import io.testomat.ui.common.data.BaseProjectInfo;
+import io.testomat.ui.playwright.condition.ElementsCondition;
 import lombok.AllArgsConstructor;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static io.testomat.ui.playwright.condition.ElementsCondition.size;
 
 @AllArgsConstructor
 public class ProjectsPageAsserts {
@@ -16,29 +18,18 @@ public class ProjectsPageAsserts {
         var page = PlaywrightWrapper.getEnvironment().getPage();
         Locator baseTile = page.locator(String.format("[title='%s']", expectedProjectTile.getName()));
 
-        String actualName = baseTile.locator("h3").innerText();
-        assertThat(actualName).isEqualTo(expectedProjectTile.getName());
-
-        String actualCount = baseTile.locator("p").innerText();
-        assertThat(actualCount).contains(String.valueOf(expectedProjectTile.getCount()));
-
-        boolean isImgVisible = baseTile.locator("img").isVisible();
-        assertThat(isImgVisible).isTrue();
-
-        String actualLabel = baseTile.locator("span").innerText();
-        assertThat(actualLabel).isEqualTo(expectedProjectTile.getLabel().toString());
+        assertThat(baseTile.locator("h3")).hasText(expectedProjectTile.getName());
+        assertThat(baseTile.locator("p")).containsText(String.valueOf(expectedProjectTile.getCount()));
+        assertThat(baseTile.locator("img")).isVisible();
+        assertThat(baseTile.locator("span")).hasText(expectedProjectTile.getLabel().toString());
 
         return this;
     }
 
     public ProjectsPageAsserts isDeleted() {
-        var page = PlaywrightWrapper.getEnvironment().getPage();
-        page.waitForTimeout(1000);
-
-        var allProjects = PlaywrightWrapper.findElements("h3", expectedProjectTile.getName());
-        if (!allProjects.isEmpty()) {
-            throw new AssertionError(expectedProjectTile.getName() + " should be deleted");
-        }
+        PlaywrightWrapper.findElements("h3")
+                .filterBy(ElementsCondition.text(expectedProjectTile.getName()))
+                .shouldHave(size(0));
 
         return this;
     }

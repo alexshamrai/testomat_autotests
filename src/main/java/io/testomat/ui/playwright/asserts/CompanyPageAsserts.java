@@ -1,11 +1,12 @@
 package io.testomat.ui.playwright.asserts;
 
 import io.testomat.ui.common.data.BaseCompanyInfo;
+import io.testomat.ui.playwright.condition.Condition;
 import lombok.AllArgsConstructor;
 import io.testomat.ui.playwright.PlaywrightWrapper;
 
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static io.testomat.ui.playwright.condition.ElementsCondition.size;
+import static io.testomat.ui.playwright.condition.ElementsCondition.text;
 
 @AllArgsConstructor
 public class CompanyPageAsserts {
@@ -13,23 +14,18 @@ public class CompanyPageAsserts {
     private final BaseCompanyInfo expectedCompanyName;
 
     public CompanyPageAsserts hasCorrectInfo() {
-        var companyElements = PlaywrightWrapper.findElements("li", expectedCompanyName.getCompanyName());
-        assertThat(companyElements.size())
-            .as("Expected company name is equal to " + expectedCompanyName.getCompanyName())
-            .isEqualTo(1);
-
-
-        var selectedOptionText = PlaywrightWrapper.find("#users_status option:checked").innerText();
+        PlaywrightWrapper.findElements("li")
+                .filterBy(text(expectedCompanyName.getCompanyName()))
+                .shouldHave(size(1));
 
         var statusValue = expectedCompanyName.getStatus().toString();
-        assertThat(selectedOptionText).isEqualToIgnoringCase(statusValue)
-                                      .as("Expected project status is equal to " + statusValue);
+        PlaywrightWrapper.find("#users_status option:checked")
+                .shouldHave(Condition.text(statusValue));
 
         var memberName = expectedCompanyName.getMembers().get(0).getName();
-        var memberElements = PlaywrightWrapper.findElements("a.ml-4", memberName);
-        assertThat(memberElements.size())
-            .as("Expected member is equal to " + memberName)
-            .isEqualTo(1);
+        PlaywrightWrapper.findElements("a.ml-4")
+                .filterBy(text(memberName))
+                .shouldHave(size(1));
 
         return this;
     }

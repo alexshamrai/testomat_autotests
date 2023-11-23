@@ -40,8 +40,4 @@ public class PlaywrightElement {
         return this;
     }
 
-    public String innerText() {
-        return locator.innerText();
-    }
-
 }
