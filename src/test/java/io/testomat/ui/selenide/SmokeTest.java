@@ -19,7 +19,7 @@ public class SmokeTest extends BaseTest {
 
     @BeforeEach
     void openLoginForm() {
-        open("users/sign_in");
+        open("/users/sign_in");
         new SignInPage()
             .isLoaded()
             .signUser(credentials);

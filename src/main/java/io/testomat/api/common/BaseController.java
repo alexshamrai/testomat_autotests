@@ -21,7 +21,7 @@ public abstract class BaseController<T> {
 
     protected RequestSpecification baseClient() {
         var authorization = RestAssured.given()
-                                       .baseUri(baseUrl + "api")
+                                       .baseUri(baseUrl + "/api")
                                        .filter(new LogRequestFilter())
                                        .contentType("application/vnd.api+json");
 

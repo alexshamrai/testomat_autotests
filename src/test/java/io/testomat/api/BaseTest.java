@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(ExtentReportListener.class)
 public abstract class BaseTest {
 
-    static final String PROJECT_ID = "baseproject";
+    static final String PROJECT_ID = "baseproject-6f98f";
     static Faker faker = new Faker();
 
     String authToken;
