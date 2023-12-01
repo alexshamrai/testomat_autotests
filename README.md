@@ -1,6 +1,6 @@
 # Testomat.io E2E Tests
 
-This project contains an end-to-end (E2E) test suite for [Testomat.io](https://app.testomat.io/), serving as a demonstration of various testing tools and libraries in Java. The primary aim is not to achieve exhaustive test coverage or employ advanced test design techniques but to showcase the integration and application of different testing tools for both API and UI testing contexts.
+This project contains an end-to-end (E2E) test suite for [Testomat.io](https://app.testomat.io), serving as a demonstration of various testing tools and libraries in Java. The primary aim is not to achieve exhaustive test coverage or employ advanced test design techniques but to showcase the integration and application of different testing tools for both API and UI testing contexts.
 
 ## 🧪 API Tests
 

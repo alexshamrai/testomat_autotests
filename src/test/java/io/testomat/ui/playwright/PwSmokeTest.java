@@ -20,7 +20,7 @@ public class PwSmokeTest extends BasePlaywrightTest {
 
     @BeforeEach
     void openLoginForm() {
-        open("users/sign_in");
+        open("/users/sign_in");
         new SignInPage()
             .isLoaded()
             .signUser(credentials);

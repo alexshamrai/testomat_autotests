@@ -22,7 +22,7 @@ public class TestsTest extends BaseTest {
 
     private static final String TEST_TITLE = faker.lordOfTheRings().character();
     private static final String UPDATED_TEST_TITLE = faker.friends().character();
-    private static final String SUITE_ID = "b2d3c681";
+    private static final String SUITE_ID = "0d7ebf39";
     private static final String TEST_DESCRIPTION = "Test description value";
     private static final String DATA_TYPE = "test";
     private static final int NORMAL_PRIORITY = 0;

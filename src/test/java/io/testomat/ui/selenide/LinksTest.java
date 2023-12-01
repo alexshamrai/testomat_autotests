@@ -9,9 +9,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LinksTest extends BaseTest {
 
-    public static final String DOCS_URL = "https://docs.testomat.io";
-    public static final String CHANGELOG_URL = "https://changelog.testomat.io";
-    public static final String PUBLIC_API_URL = "docs/api";
+    public static final String DOCS_URL = "https://docs.testomat.io/";
+    public static final String CHANGELOG_URL = "https://changelog.testomat.io/";
+    public static final String PUBLIC_API_URL = "/docs/api";
 
     MenuBar menuBar = new MenuBar();
 
@@ -20,6 +20,7 @@ public class LinksTest extends BaseTest {
     void checkDocsLink() {
         openPageAsLoggedInUser("");
         menuBar.goToDocs();
+
         assertThat(url()).isEqualTo(DOCS_URL);
     }
 
